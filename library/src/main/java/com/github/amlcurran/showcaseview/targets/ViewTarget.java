@@ -26,6 +26,8 @@ import android.view.View;
 public class ViewTarget implements Target {
 
     private final View mView;
+    private float sx = .5f;
+    private float sy = .5f;
 
     public ViewTarget(View view) {
         mView = view;
@@ -34,13 +36,27 @@ public class ViewTarget implements Target {
     public ViewTarget(int viewId, Activity activity) {
         mView = activity.findViewById(viewId);
     }
+    
+    public ViewTarget(View view, float sx, float sy) {
+        mView = view;
+        this.sx = sx;
+        this.sy = sy;
+    }
+
+    public ViewTarget(int viewId, Activity activity, float sx, float sy) {
+        mView = activity.findViewById(viewId);
+        this.sx = sx;
+        this.sy = sy;
+    }
 
     @Override
-    public Point getPoint() {
-        int[] location = new int[2];
+    public Point getPoint() 
+    {
+    	int[] location = new int[2];
         mView.getLocationInWindow(location);
-        int x = location[0] + mView.getWidth() / 2;
-        int y = location[1] + mView.getHeight() / 2;
+        int x = location[0] + (int)((float)(mView.getWidth()) * sx);
+        int y = location[1] + (int)((float)(mView.getHeight()) * sy);
+        
         return new Point(x, y);
     }
 }

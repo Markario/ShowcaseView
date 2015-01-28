@@ -19,7 +19,7 @@ package com.github.amlcurran.showcaseview;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-class ShotStateStore {
+public class ShotStateStore {
 
     private static final String PREFS_SHOWCASE_INTERNAL = "showcase_internal";
     private static final int INVALID_SHOT_ID = -1;
@@ -51,6 +51,12 @@ class ShotStateStore {
 
     void setSingleShot(long shotId) {
         this.shotId = shotId;
+    }
+    
+    public static void resetSingleShot(Context context, long id)
+    {
+    	SharedPreferences internal = context.getSharedPreferences(PREFS_SHOWCASE_INTERNAL, Context.MODE_PRIVATE);
+        internal.edit().putBoolean("hasShot" + id, false).apply();
     }
 
 }

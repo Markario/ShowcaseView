@@ -31,6 +31,8 @@ class ReflectorFactory {
                 return new AppCompatReflector(activity);
             case ACTIONBAR_SHERLOCK:
                 return new SherlockReflector(activity);
+            case APP_COMPAT_V7:
+                return new AppCompatV7Reflector(activity);
         }
         return null;
     }
@@ -42,6 +44,11 @@ class ReflectorFactory {
                 return Reflector.ActionBarType.ACTIONBAR_SHERLOCK;
             }
             if (currentLevel.getSimpleName().equals("ActionBarActivity")) {
+            	if(currentLevel.getPackage().toString().contains("v7"))
+            	{
+            		return Reflector.ActionBarType.APP_COMPAT_V7;
+            	}
+            	
                 return Reflector.ActionBarType.APP_COMPAT;
             }
             currentLevel = currentLevel.getSuperclass();

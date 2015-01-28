@@ -35,7 +35,7 @@ class ActionBarViewWrapper {
     private Class mAbsActionBarViewClass;
 
     public ActionBarViewWrapper(ViewParent actionBarView) {
-        if (!actionBarView.getClass().getName().contains("ActionBarView")) {
+        /*if (!actionBarView.getClass().getName().contains("ActionBarView")) {
             String previousP = actionBarView.getClass().getName();
             actionBarView = actionBarView.getParent();
             String throwP = actionBarView.getClass().getName();
@@ -43,7 +43,7 @@ class ActionBarViewWrapper {
                 throw new IllegalStateException("Cannot find ActionBarView for " +
                         "Activity, instead found " + previousP + " and " + throwP);
             }
-        }
+        }*/
         mActionBarView = actionBarView;
         mActionBarViewClass = actionBarView.getClass();
         mAbsActionBarViewClass = actionBarView.getClass().getSuperclass();
@@ -71,6 +71,16 @@ class ActionBarViewWrapper {
     public View getTitleView() {
         try {
             Field mTitleViewField = mActionBarViewClass.getDeclaredField("mTitleView");
+            mTitleViewField.setAccessible(true);
+            return (View) mTitleViewField.get(mActionBarView);
+        } catch (NoSuchFieldException e) {
+            Log.e("TAG", "Failed to find actionbar title", e);
+        } catch (IllegalAccessException e) {
+            Log.e("TAG", "Failed to access actionbar title", e);
+        }
+        
+        try {
+            Field mTitleViewField = mActionBarViewClass.getDeclaredField("mTitleTextView");
             mTitleViewField.setAccessible(true);
             return (View) mTitleViewField.get(mActionBarView);
         } catch (NoSuchFieldException e) {
