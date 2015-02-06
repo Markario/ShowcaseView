@@ -523,7 +523,7 @@ public class ShowcaseView extends RelativeLayout
     /**
      * @see com.github.amlcurran.showcaseview.ShowcaseView.Builder#setSingleShot(long)
      */
-    private void setSingleShot(long shotId) {
+    public void setSingleShot(long shotId) {
         shotStateStore.setSingleShot(shotId);
     }
 

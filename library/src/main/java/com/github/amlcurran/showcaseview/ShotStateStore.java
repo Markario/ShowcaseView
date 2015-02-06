@@ -58,5 +58,17 @@ public class ShotStateStore {
     	SharedPreferences internal = context.getSharedPreferences(PREFS_SHOWCASE_INTERNAL, Context.MODE_PRIVATE);
         internal.edit().putBoolean("hasShot" + id, false).apply();
     }
+    
+    public static void setSingleShot(Context context, long id)
+    {
+    	SharedPreferences internal = context.getSharedPreferences(PREFS_SHOWCASE_INTERNAL, Context.MODE_PRIVATE);
+        internal.edit().putBoolean("hasShot" + id, true).apply();
+    }
+    
+    public static boolean getSingleShot(Context context, long id)
+    {
+    	SharedPreferences internal = context.getSharedPreferences(PREFS_SHOWCASE_INTERNAL, Context.MODE_PRIVATE);
+        return internal.getBoolean("hasShot" + id, false);
+    }
 
 }
